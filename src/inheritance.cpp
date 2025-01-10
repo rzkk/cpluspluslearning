@@ -2,7 +2,7 @@
  * @Author: rzk ruanzk2098@gmial.com
  * @Date: 2024-12-14 16:37:30
  * @LastEditors: rzk ruanzk2098@gmial.com
- * @LastEditTime: 2024-12-26 16:49:57
+ * @LastEditTime: 2025-01-07 12:28:05
  * @FilePath: /cplusplus/src/inheritance.cpp
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -222,7 +222,7 @@ void test1(){
 namespace PloymorphismTest
 {  
 
-#if 1
+#if 0
 class Base{
 public:
     Base(long x):_base(x){}
@@ -275,7 +275,7 @@ void test(){
     
 }
 #endif
-#if 0 
+#if 0
 class Grandpa
 {
 public:
@@ -304,7 +304,7 @@ public:
         cout << "~Parent()" << endl;
         func2();//析构函数中调用虚函 数
     }
-     virtual void func1() override {
+    virtual void func1() override {
         cout << "Parent::func1()" << endl;
     }
 
@@ -332,15 +332,17 @@ public:
 
 void test1(){
     Son ss;
-    // Grandpa * p = &ss;
+    //Grandpa * p = &ss;
     // p->func1();
     // p->func2();
 
-    cout << sizeof(Grandpa)<<endl;
-    cout << sizeof(Parent)<<endl;
-    cout << sizeof(Son)<<endl;
+    // cout << sizeof(Grandpa)<<endl;
+    // cout << sizeof(Parent)<<endl;
+    // cout << sizeof(Son)<<endl;
 }
 
+#endif 
+#if 1 
 
 class Base{
 public:
@@ -353,7 +355,7 @@ public:
     }
 
     void func1(){  //普通成员函数中调用虚函数
-        display();
+        this->display();   // this 调用
         cout << _base << endl;
     }
 
@@ -373,10 +375,12 @@ public:
     : Base(base)
     , _derived(derived)
     {}
-    void func1(){  //普通成员函数中调用虚函数
-        display();
-        //cout << _base << endl;
-    }
+
+    // void func1(){  //普通成员函数中调用虚函数
+    //     display();
+    //     //cout << _base << endl;
+    // }
+    
     void display() const override{
         cout << "Derived::display()" << endl;
     }
@@ -388,11 +392,13 @@ void test2(){
     Base base(10);
     Derived derived(1,2);
 
-    //base.func1();
-    //base.func2();
+    base.func1();
+    base.func2();
 
     derived.func1(); // Derived的display 
-    //derived.func2();
+    //通过基类子对象去调用fun1 , this 从 Derived * => Base * 发生转型
+
+    derived.func2();
 }
 #endif
 } // namespace PloymorphismTest
@@ -445,7 +451,170 @@ void test(){
 
 } // namespace test
 
+namespace voerrideTest{
+class Base{
+public:
+    virtual void display()const {
+        cout<<"Base::display()"<<endl;
+    }
+private:
+    long _base;
+};
+
+class Derived: public Base{
+public:
+
+    void display() const override{
+        cout<<"Derived::display()"<<endl;
+    }
+
+private:
+    long _derived;
+};
+}
+
+#include<string>
+using std::string;
+
+namespace purVirtualTest{
+#if 0
+class A{
+public:
+    virtual void print() = 0;
+    virtual void display() = 0;
+} ;
+
+class B : public A{
+public:
+    virtual void print() override{
+        cout<<"B::print()"<<endl;;
+    }
+    virtual void display() override{
+        cout<<"B::display()"<<endl;;
+    }
+
+};
+
+void test(){
+    //A a;
+    B b1;
+    A* pa1 = &b1; 
+
+    pa1->print();
+
+    A* pa2 = new B();
+    pa2->print();
+
+    A & ref = b1;  // 引用
+
+    ref.display();
+}
+#endif
+
+#if 0
+class A{
+public:
+    virtual void print() = 0;
+    virtual void display() = 0;
+} ;
+
+class B : public A{
+public:
+    virtual void print() override{
+        cout<<"B::print()"<<endl;;
+    }
+};
+
+class C:public B{
+public:
+    // virtual void print() override{
+    //     cout<<"C::print()"<<endl;;
+    // }
+
+virtual void display() override{
+        cout<<"C::display()"<<endl;;
+    }
+};
+
+void test(){
+    //A a;
+    //B b1;   //B没有完成所有纯虚函数的实现
+    C c1;
+    A* pa1 = &c1; 
+
+    pa1->print();
+
+    A* pa2 = new C();
+    pa2->print();
+    pa2->display();
+
+    A & ref = c1;  // 引用
+
+    ref.display();
+}
+#endif
+
+#if 1 
+
+class Figure{
+public:
+    virtual string getName() const = 0;
+    virtual double getArea() const =0;
+};
+
+void display(Figure & fig){
+    cout<<fig.getName()<<" 面积 : "<<fig.getArea()<<endl;
+}
+class Rectangle : public Figure{
+public:
+    Rectangle(double len , double wid):_length(len), _width(wid){}
+
+    string getName() const override{
+        return "矩形";
+    }
+    double getArea()const override{
+        return _length *_width;
+    }
+private:
+    double _length;
+    double _width;
+};
+
+class Circle : public Figure{
+public:
+    Circle(double r):_radius(r),cd2(r){}
+
+    string getName() const override{
+        return "园";
+    }
+    double getArea()const override{
+        return _radius*_radius*PI;
+    }
+public:
+    double _radius;
+
+    const static double  PI ;
+};
+
+//在运行时才能确定一个double型的数据，
+const double Circle::PI = 3.1415926;
+
+
+void test(){
+    Rectangle r(10, 20);
+    Circle c(2);
+    display(r);
+    display(c);
+}
+#endif 
+
+}//end of namespace purVirtualtest
+
+
+
+
 
 int main(){
-    PloymorphismTest::test();
+    purVirtualTest::test();
+    
 }
