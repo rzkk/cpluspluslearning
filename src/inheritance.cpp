@@ -2,7 +2,7 @@
  * @Author: rzk ruanzk2098@gmial.com
  * @Date: 2024-12-14 16:37:30
  * @LastEditors: rzk ruanzk2098@gmial.com
- * @LastEditTime: 2025-01-07 12:28:05
+ * @LastEditTime: 2025-01-21 17:12:59
  * @FilePath: /cplusplus/src/inheritance.cpp
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -45,7 +45,7 @@ private:
 void test(){
     Point3D d1(1,2,3);
     d1.display();
-    d1._ix;
+    //d1._ix;
 }
 }
 
@@ -527,9 +527,9 @@ public:
 
 class C:public B{
 public:
-    // virtual void print() override{
-    //     cout<<"C::print()"<<endl;;
-    // }
+    virtual void print() override{
+        cout<<"C::print()"<<endl;;
+    }
 
 virtual void display() override{
         cout<<"C::display()"<<endl;;
@@ -546,15 +546,15 @@ void test(){
 
     A* pa2 = new C();
     pa2->print();
-    pa2->display();
+     pa2->display();
 
-    A & ref = c1;  // 引用
+    // A & ref = c1;  // 引用
 
-    ref.display();
+    // ref.display();
 }
 #endif
 
-#if 1 
+#if 0 
 
 class Figure{
 public:
@@ -565,6 +565,7 @@ public:
 void display(Figure & fig){
     cout<<fig.getName()<<" 面积 : "<<fig.getArea()<<endl;
 }
+
 class Rectangle : public Figure{
 public:
     Rectangle(double len , double wid):_length(len), _width(wid){}
@@ -582,7 +583,7 @@ private:
 
 class Circle : public Figure{
 public:
-    Circle(double r):_radius(r),cd2(r){}
+    Circle(double r):_radius(r){}
 
     string getName() const override{
         return "园";
@@ -596,7 +597,7 @@ public:
     const static double  PI ;
 };
 
-//在运行时才能确定一个double型的数据，
+//在运行时才能确定的 double型数据，
 const double Circle::PI = 3.1415926;
 
 
@@ -608,7 +609,205 @@ void test(){
 }
 #endif 
 
+#if 0
+class Base{
+protected:
+    Base(int b):_base(b){
+        cout<<"Base()"<<endl;
+    }
+    int _base;
+public:
+    virtual void print() const {}
+    //friend class Derived;
+};
+
+class Derived:public Base{
+public:
+    Derived(int b, int d ):Base(b), _derived(d)
+    //,_b1(b)
+      {
+        cout<<"Derived()"<<endl;
+    }
+
+    void print() const override{
+        cout<<_base <<"   "<< _derived<<endl;
+    }
+private:
+    int _derived;
+    //Base _b1;
+};
+
+void test(){
+
+    Derived d1(2,4);
+    Base * p = &d1;
+
+    p->print();
+}
+
+#endif
+
+#if 0
+class Base{
+public:
+    Base(int b):_pbase(new int(b)){
+        cout<<"Base()"<<endl;
+    }
+    
+    virtual void print() const {
+        cout<<"Base::print() "<<*_pbase<<endl;
+    }
+    virtual ~Base(){
+        if(_pbase){
+            delete _pbase;
+            _pbase = nullptr;
+        }
+        cout<<"~Base()"<<endl;
+    }
+private:
+    int *  _pbase;
+};
+
+class Derived:public Base{
+public:
+    Derived(int b, int d ):Base(b), _pderived(new int(d))
+    {
+        cout<<"Derived()"<<endl;
+    }
+
+    void print() const override{
+        cout<<"Derived::print()  "<< *_pderived<<endl;
+    }
+    ~Derived(){
+        if(_pderived){
+            delete _pderived;
+            _pderived = nullptr;
+        }
+        cout<<"~Derived()"<<endl;
+    }
+private:
+    int *_pderived;
+    //Base _b1;
+};
+
+void test(){
+
+    cout<<sizeof(Base)<<endl;    //16
+    cout<<sizeof(Derived)<<endl; //24
+    Base *pb  = new Derived(2,4);
+    pb->print();
+    
+    delete pb;
+   
+}
+#endif
+
+#if 1 
+
+class Base {
+public:
+    //Base(long x) :_base(x) {}
+    virtual void display() const {
+        cout << "Base:display()" << endl;
+    }
+    virtual void show() const {
+        cout << "Base:show()" << endl;
+    }
+    virtual void print() const {
+        cout << "Base:show()" << endl;
+    }
+    
+private:
+    long _base  =10;
+};
+
+
+class Derived :public Base {
+public:
+    //Derived(long base1,long base2 , long derived) :Base1(base1), Base2(base2),_derived(derived) {}
+
+    // virtual void display()const override{   //如果没有覆盖 ， 下面调用会调Base 的
+    //     cout << "Derived: display()" << endl;
+
+    // }
+    virtual void print() const override{
+        cout << "Derived: display()" << endl;
+    }
+
+    virtual void show() const override{
+        cout << "Derived:show()" << endl;
+    }
+
+    virtual void Func() const {   //并没有多出虚表 , 直接在虚表中追加
+        cout << "Derived:Func()" << endl;
+    }
+private:
+    long _derived = 100;
+};
+int a = 0;
+const int b = 0;
+void  test() {
+
+    Derived d;
+    //d.display();
+    //将Derived 当作三个存了三个long的结构体
+    long* pDerived = reinterpret_cast<long*>(&d);
+    //long* pDerived2 = (long*)(&d);
+    cout << pDerived[0] << endl;
+    cout << pDerived[1] << endl;
+    cout << pDerived[2] << endl;
+    //cout << pDerived[3] << endl;
+
+    cout<<endl;
+
+    
+    
+    long * ptable = reinterpret_cast<long*>(pDerived[0]); //
+
+    
+    static int num = 0;
+    const char * pstr = "hello";
+  
+    cout<<&num<<"   静态"<<endl; //静态，  全局静态区
+    cout<<&a<<"   全局"<<endl;   //全局
+
+    cout<<ptable<<"   ptable"<<endl;    // => 文字常量区
+
+    cout<<&b<<"   全局常量"<<endl;  //全局常量
+    printf("%p  字符串常量\n", pstr); //字符串常量
+    printf("%p  程序代码区\n  ", test); //程序代码区
+    
+    cout<<endl;
+    cout<<ptable[0]<<endl;
+    cout<<ptable[1]<<endl;
+    cout<<ptable[2]<<endl;
+    //cout<<ptable[2]<<endl;
+    typedef void (*Function)();
+    Function f1 = (Function)(ptable[0]);  // 哪怕函数私有化也可以调用 
+    f1();//从内存上直接通过C的方式调用， 没有类的限制
+
+    Function f2 = (Function)(ptable[1]);  // 哪怕函数私有化也可以调用 
+    f2();
+
+    Function f3= (Function)(ptable[2]);  // 哪怕函数私有化也可以调用 
+    f3();
+
+     Function f4= (Function)(ptable[3]);  // 哪怕函数私有化也可以调用 
+    f4();
+    // cout << sizeof(Base) << endl;
+    // cout << sizeof(Derived) << endl; 
+    // cout << sizeof(int *) << endl;
+    // cout << sizeof(long) << endl;
+
+}
+
+
+
+
+#endif 
+
 }//end of namespace purVirtualtest
+
 
 
 

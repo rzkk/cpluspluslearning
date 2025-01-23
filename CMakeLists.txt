@@ -63,10 +63,10 @@ include_directories( ${CMAKE_SOURCE_DIR}/include )
 # redefine_file_macro(log4cppTest)
 
 
- add_library(LineImpl SHARED src/LineImpl.cpp)
- link_directories(build)
- add_executable(operatorTest src/operatorTest.cpp  src/CowString.cpp)
- target_link_libraries(operatorTest LineImpl pthread)
+#  add_library(LineImpl SHARED src/LineImpl.cpp)
+#  link_directories(build)
+#  add_executable(operatorTest src/operatorTest.cpp  src/CowString.cpp)
+#  target_link_libraries(operatorTest LineImpl pthread)
 
 
 #add_executable(myStringTest src/myStringTest.cpp src/myString.cpp)
@@ -74,7 +74,7 @@ include_directories( ${CMAKE_SOURCE_DIR}/include )
 
 #add_executable(associativeTest src/associative.cpp)
 
-add_executable(inheritanceTest src/inheritance.cpp)
+#add_executable(inheritanceTest src/inheritance.cpp)
 
-
+add_executable(templateTest src/template.cpp)
 # add_executable(SsoStringTest src/SsoString.cpp)
