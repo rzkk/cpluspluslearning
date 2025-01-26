@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   -Wall -fno-elide-constructors -g CMakeFiles/templateTest.dir/src/template.cpp.o -o templateTest

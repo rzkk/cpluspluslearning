@@ -15,6 +15,7 @@ set(CMAKE_BUILD_TYPE Debug)
 
 # 包含目录 头文件目录
 include_directories( ${CMAKE_SOURCE_DIR}/include )
+include_directories( ${CMAKE_SOURCE_DIR}/src )
 #include_directories( include )
 
 #message( ${CMAKE_SOURCE_DIR})
@@ -76,5 +77,8 @@ include_directories( ${CMAKE_SOURCE_DIR}/include )
 
 #add_executable(inheritanceTest src/inheritance.cpp)
 
-add_executable(templateTest src/template.cpp)
+add_executable(templateTest 
+            src/template.cpp 
+            src/template/add.tcc
+            )
 # add_executable(SsoStringTest src/SsoString.cpp)
