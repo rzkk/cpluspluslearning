@@ -1,3 +1,0 @@
-/home/rzk/document/cpluspluslearning/build/CMakeFiles/templateTest.dir
-/home/rzk/document/cpluspluslearning/build/CMakeFiles/edit_cache.dir
-/home/rzk/document/cpluspluslearning/build/CMakeFiles/rebuild_cache.dir
