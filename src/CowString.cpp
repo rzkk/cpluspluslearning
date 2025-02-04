@@ -10,10 +10,11 @@
  */
 #include<iostream>
 #include"CowString.h"
-#include<cstring>
+#include<string.h>
 
 using std::cout;
 using std::endl;
+using std::size_t;
 
 CowString::CowString() : _pstr(mallocCowString()){
    initRefCount();

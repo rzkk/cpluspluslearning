@@ -18,14 +18,14 @@ private:
     class CharProxy{  // 友元而已 
     public:
         //为了代理对象能影响CowString对象，用引用
-        CharProxy( CowString &self ,size_t index) :_self(self) , _index(index){}
+        CharProxy( CowString &self ,std::size_t index) :_self(self) , _index(index){}
         char& operator=( const char  rhs);
         friend ostream& operator<< (ostream & os, const CharProxy &c);
 
     private:
         //CowString self;  //不允许使用不完整的类型 "CowString"
         CowString &_self; 
-        size_t _index;
+        std::size_t _index;
     };
 public:
     CowString();
@@ -34,9 +34,9 @@ public:
     
     ~CowString();
     CowString & operator = (const CowString &);
-    CowString::CharProxy  operator[](size_t index );
+    CowString::CharProxy  operator[](std::size_t index );
     const char* c_str() const ;//{ return _pstr;}
-    size_t size() const;// { return strlen(_pstr); }
+    std::size_t size() const;// { return strlen(_pstr); }
 
     int getRefCount()const {
         return  *(int*)(_pstr - kRefCountLength) ;

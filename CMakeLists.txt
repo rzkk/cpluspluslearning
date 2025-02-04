@@ -5,9 +5,11 @@ cmake_minimum_required(VERSION 3.10)
 project(cPlusPlusLearning)
 
 # 添加编译参数 -O0  -fno-elide-constructors 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g   -Wall -fno-elide-constructors")    
-#-O2 可能会优化代码结构，不便于调试-fno-elide-constructors
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g  -fno-elide-constructors -Wall ")    
+#-O2 可能会优化代码结构，
+#不便于调试-fno-elide-constructors: 主要对临时变量的优化效果
 # -fno-elide-constructors
+
 # 设置代码构建级别为 Debug 方式
 set(CMAKE_BUILD_TYPE Debug)
 
@@ -70,15 +72,20 @@ include_directories( ${CMAKE_SOURCE_DIR}/src )
 #  target_link_libraries(operatorTest LineImpl pthread)
 
 
-#add_executable(myStringTest src/myStringTest.cpp src/myString.cpp)
+# add_executable(myStringTest 
+#     src/myStringTest.cpp 
+#     src/myString.cpp)
 
+# add_executable(smartPtr  src/smartPtr.cpp)
+# add_executable(moveTest  src/moveTest.cpp)
 
 #add_executable(associativeTest src/associative.cpp)
 
 #add_executable(inheritanceTest src/inheritance.cpp)
+add_executable(raii src/RAII.cpp)
 
-add_executable(templateTest 
-            src/template.cpp 
-            src/template/add.tcc
-            )
+# add_executable(templateTest 
+#             src/template.cpp 
+#             src/template/add.tcc
+#             )
 # add_executable(SsoStringTest src/SsoString.cpp)

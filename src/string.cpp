@@ -143,7 +143,7 @@ void test6()
 {
     string  str = "helloworld";
 
-    for(size_t i = 0;i<str.size();++i)
+    for(std::size_t i = 0;i<str.size();++i)
     {
         cout<<str.at(i)<<" ";
     }
@@ -165,6 +165,8 @@ void test6()
     cout<<endl;
 
 }
+
+
 int main()
 {
 

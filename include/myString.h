@@ -17,9 +17,11 @@ public:
     String();
     String(const char * );
     String(const String &);
+    String( String &&);
     ~String();
 
     String & operator=(const String&);
+    String & operator=( String&&);
     String & operator=(const char *);
 
     String & operator+=(const String&);
