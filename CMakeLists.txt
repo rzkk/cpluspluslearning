@@ -82,10 +82,15 @@ include_directories( ${CMAKE_SOURCE_DIR}/src )
 #add_executable(associativeTest src/associative.cpp)
 
 #add_executable(inheritanceTest src/inheritance.cpp)
-add_executable(raii src/RAII.cpp)
+# add_executable(raii src/RAII.cpp)
 
 # add_executable(templateTest 
 #             src/template.cpp 
 #             src/template/add.tcc
 #             )
 # add_executable(SsoStringTest src/SsoString.cpp)
+
+  # add_executable(stlTest  src/stl2.cpp)
+  add_executable(myVectorTest  src/myVector.cpp)
+  # add_executable(stlTest  src/stl.cpp)
+# add_executable(Test  src/test.cpp)

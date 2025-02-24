@@ -68,6 +68,8 @@
         "ccomplex": "cpp",
         "ios": "cpp",
         "core": "cpp",
-        "*.txx": "cpp"
+        "*.txx": "cpp",
+        "unordered_set": "cpp",
+        "*.ipp": "cpp"
     }
 }
