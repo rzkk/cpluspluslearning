@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/rzk/documents/learning/cplusplus/build",
+  "command": "/usr/bin/g++  -I/home/rzk/documents/learning/cplusplus/include -I/home/rzk/documents/learning/cplusplus/src  -g  -fno-elide-constructors -Wall  -g -o CMakeFiles/myVectorTest.dir/src/myVector.cpp.o -c /home/rzk/documents/learning/cplusplus/src/myVector.cpp",
+  "file": "/home/rzk/documents/learning/cplusplus/src/myVector.cpp",
+  "output": "CMakeFiles/myVectorTest.dir/src/myVector.cpp.o"
+}
+]

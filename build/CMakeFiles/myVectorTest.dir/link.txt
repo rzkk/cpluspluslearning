@@ -1,0 +1,1 @@
+/usr/bin/g++  -g  -fno-elide-constructors -Wall  -g CMakeFiles/myVectorTest.dir/src/myVector.cpp.o -o myVectorTest
