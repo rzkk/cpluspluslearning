@@ -91,6 +91,8 @@ include_directories( ${CMAKE_SOURCE_DIR}/src )
 # add_executable(SsoStringTest src/SsoString.cpp)
 
   # add_executable(stlTest  src/stl2.cpp)
-  add_executable(myVectorTest  src/myVector.cpp)
+ # add_executable(myVectorTest  src/myVector.cpp)
   # add_executable(stlTest  src/stl.cpp)
 # add_executable(Test  src/test.cpp)
+
+add_executable(test  src/test.cpp)

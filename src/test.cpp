@@ -20,16 +20,33 @@ void print(list<int>&num){
     cout<<endl;
 }
 
+#include<map>
+using std::map;
+using std::multimap;
+void test(){
+    multimap<int ,int>mmp1;
+    int arr[] = {-1,0,1,2,-1,-4};
+    for(int i = 6-1;i>=0;--i){
+        mmp1.emplace(arr[i] , i);
+    }
+    multimap<int ,int>mmp2;
+    for(int i = 0;i<6;++i){
+        mmp2.emplace(arr[i] , i);
+    }
+
+    for(auto it = mmp1.begin() ;it!= mmp1.end();++it){
+        cout<<it->first<<"  "<<it->second<<endl;
+    }
+    cout<<"-----------------"<<endl;
+    for(auto it = mmp2.begin() ;it!= mmp2.end();++it){
+        cout<<it->first<<"  "<<it->second<<endl;
+    }
+
+    auto it = mmp1.find(-1);
+    cout<<it->second<<endl;
+    it = mmp2.find(-1);
+    cout<<it->second<<endl;
+}
 int main(){
-
-   list<int>num1{1,3,5,7,9};
-   list<int>num2{2,4};
-
-   auto it = num1.begin();
-   //auto it1 = num1.begin()+1;
-   auto it2 = num2.begin();
-   it2++;
-   num1.splice(it, num2 ,it2 , num2.end() );
-   print(num1);
-   print(num2);
+    test();
 }

@@ -1,3 +1,0 @@
-/home/rzk/documents/learning/cplusplus/build/CMakeFiles/myVectorTest.dir
-/home/rzk/documents/learning/cplusplus/build/CMakeFiles/edit_cache.dir
-/home/rzk/documents/learning/cplusplus/build/CMakeFiles/rebuild_cache.dir
